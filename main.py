@@ -41,12 +41,12 @@ for image_name in os.listdir(folder_path):
         data.append(processed_image)
         labels.append([image_class])  # Wrap the image_class in a list
 
-# Print file names from each class
-for class_name, files in class_files.items():
-    print(f"Class: {class_name}")
-    for file_name in files:
-        print(file_name)
-    print()
+# # Print file names from each class
+# for class_name, files in class_files.items():
+#     print(f"Class: {class_name}")
+#     for file_name in files:
+#         print(file_name)
+#     print()
 # Konwertowanie danych do macierzy numpy
 data = np.array(data)
 labels = np.array(labels)
@@ -64,9 +64,13 @@ train_data, val_data, train_labels, val_labels = train_test_split(data, encoded_
 
 # Budowanie modelu
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(img_height, img_width, img_channels)))
+model.add(Conv2D(128, (3, 3), activation='relu', input_shape=(img_height, img_width, img_channels)))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
+model.add(Dense(256, activation='relu'))
 model.add(Dense(128, activation='relu'))
 model.add(Dense(len(classes), activation='softmax'))
 
