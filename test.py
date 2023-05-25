@@ -7,6 +7,7 @@ from BraileApp.main import classes
 # Load the trained model
 model = load_model("braille_model.h5")
 save_path = r"C:\Users\PC\PycharmProjects\BraileApp\BraileApp\savepath\zdjecieTestowane"
+
 # Function to preprocess image
 def preprocess_image(image):
     processed_image = cv2.resize(image, (28, 28))

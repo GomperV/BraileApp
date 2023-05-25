@@ -74,11 +74,15 @@ model.add(Dense(256, activation='relu'))
 model.add(Dense(128, activation='relu'))
 model.add(Dense(len(classes), activation='softmax'))
 
-# Kompilacja modelu
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+if os.path.exists("braille_model.h5"):
+    print("Model juz istnieje")
+else:
+    print("Model file not found. Please train the model first.")
+    # Kompilacja modelu
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Trenowanie modelu
-model.fit(train_data, train_labels, validation_data=(val_data, val_labels), epochs=10)
+    # Trenowanie modelu
+    model.fit(train_data, train_labels, validation_data=(val_data, val_labels), epochs=10)
 
-# Zapisz wytrenowany model
-model.save("braille_model.h5")
+    # Zapisz wytrenowany model
+    model.save("braille_model.h5")
