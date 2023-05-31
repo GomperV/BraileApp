@@ -15,6 +15,7 @@
         }
 
         .container {
+
             max-width: 500px;
             margin: 0 auto;
             background-color: #fff;
@@ -23,7 +24,11 @@
         }
 
         .upload-form {
+            margin-top: 20px;
             margin-bottom: 20px;
+        }
+        #input {
+            margin-top: 20px;
         }
 
         .result {
@@ -43,7 +48,10 @@
         <form class="upload-form" method="POST" action="/upload" enctype="multipart/form-data">
             <input type="file" name="file" accept="image/*" required>
             <br>
-            <input type="submit" value="Upload">
+            <div id="input">
+                <input type="submit" value="Upload">
+            </div>
+
         </form>
         <div class="result" id="result"></div>
     </div>
