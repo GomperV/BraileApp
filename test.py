@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 from keras.models import load_model
 
-from BraileApp.main import classes
-
 # Load the trained model
 model = load_model("braille_model.h5")
 save_path = r"C:\Users\PC\PycharmProjects\BraileApp\BraileApp\savepath\zdjecieTestowane"
@@ -16,12 +14,12 @@ def preprocess_image(image):
     return processed_image
 
 # Function to predict the class of a letter image
-def predict_class(letter_image):
+def predict_class(letter_image, model):
     preprocessed_image = preprocess_image(letter_image)
     input_image = np.expand_dims(preprocessed_image, axis=0)
     predictions = model.predict(input_image)
     predicted_class_index = np.argmax(predictions)
-    predicted_class = predicted_class_index
+    predicted_class = chr(predicted_class_index + 97)  # Convert class index to ASCII character (a = 0, b = 1, c = 2, ...)
     return predicted_class
 
 # Function to split image into individual letters
@@ -32,18 +30,3 @@ def split_image(image):
         letter_image = image[:, i:i+letter_width]
         letter_images.append(letter_image)
     return letter_images
-
-# Function to convert Braille text image to English text
-def convert_braille_to_english(image):
-    letter_images = split_image(image)
-    english_text = ""
-    for letter_image in letter_images:
-        predicted_class = predict_class(letter_image)
-        english_text += classes[predicted_class]
-    return english_text
-
-# Load and convert the Braille text image to English text
-braille_text_image_path = r"C:\Users\PC\PycharmProjects\BraileApp\BraileApp\example\braille_text.jpg"
-braille_text_image = cv2.imread(braille_text_image_path)
-english_text = convert_braille_to_english(braille_text_image)
-print("English text:", english_text) 

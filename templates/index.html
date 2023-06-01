@@ -15,7 +15,6 @@
         }
 
         .container {
-
             max-width: 500px;
             margin: 0 auto;
             background-color: #fff;
@@ -27,31 +26,49 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
         #input {
             margin-top: 20px;
         }
 
         .result {
-            margin-top: 20px;
+            margin-top: 0px;
         }
 
         img {
             max-width: 400px;
             max-height: 400px;
-            margin-top: 20px;
+            margin-top: 0px;
+        }
+
+        #info {
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #cccccc;
+            font-size: 10px;
+        }
+
+        footer{
+            padding: 5px;
+            font-size: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Image Classification</h1>
+        <h3>Braille to English interpreter</h3>
+        <div id="info">
+            <h4>Allowed image dimensions: </h4>
+    <p>Height: 28px</p>
+    <p>Width: 28px * amount of letters</p>
+    <p>Each letter must fit into a 28x28 square</p>
+            </div>
         <form class="upload-form" method="POST" action="/upload" enctype="multipart/form-data">
             <input type="file" name="file" accept="image/*" required>
             <br>
             <div id="input">
                 <input type="submit" value="Upload">
             </div>
-
         </form>
         <div class="result" id="result"></div>
     </div>
@@ -69,15 +86,17 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function(response) {
-                    $('#result').html('<img src="' + URL.createObjectURL(formData.get("file")) + '">');
-                    $('#result').append('<p>Predicted class: ' + response + '</p>');
-                },
+success: function(response) {
+    $('#result').html('<img src="' + URL.createObjectURL(formData.get("file")) + '">');
+    $('#result').append(response + '</p>');
+},
                 error: function() {
                     $('#result').text('Error occurred during upload.');
                 }
             });
         });
     </script>
+
+<footer>Made by Oskar Górnikiewicz, Jakub Konior, Tomasz Grzesicki, Stanisław Górski</footer>
 </body>
 </html>
